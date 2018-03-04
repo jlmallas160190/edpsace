@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:p="http://primefaces.org/ui">
+    <div class="ui-grid ui-grid-responsive">
+        <p:panelMenu style="width:300px">
+            <p:submenu label="Menú">
+                <c:forEach var="menu" items="#{menuController.menus}">
+                    <p:menuitem value="#{menu.name}" process="@this" update="@form:panel-chart" actionListener="#{chartBuilderController.graficar(menu.form)}" icon="#{menu.icon}" />
+                </c:forEach>
+            </p:submenu>
+        </p:panelMenu>
+    </div>
+</html>

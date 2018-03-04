@@ -1,0 +1,41 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html">
+    <body>
+        <ui:composition template="./../template.xhtml">
+            <ui:define name="title">
+                Estadística Dspace
+            </ui:define> 
+            <ui:define name="top">
+                Estadística Dspace
+            </ui:define>    
+            <ui:define name="left">
+                <ui:include src="./menu.xhtml"/>
+            </ui:define>     
+            <ui:define name="right">
+
+            </ui:define>    
+
+            <ui:define name="content">
+                <p:messages id="msg"/> 
+                <p:panel  id="panel-chart" header="Gráficos Estadísticos">
+                    <p:scrollPanel  >
+                        <center>
+                            <p:chart id="chart-edspace" type="#{chartBuilderController.tipoChart}" rendered="#{chartBuilderController.chartModel!=null}"
+                                     model="#{chartBuilderController.chartModel}"  />
+                        </center>
+                        <h:outputText style="font-size: 14px;font-weight: bolder" rendered="#{chartBuilderController.chartModel==null}" value="#{chartBuilderController.mensajeError}"/>
+                    </p:scrollPanel>
+                </p:panel>
+
+            </ui:define>
+            <ui:define name="bottom">
+                Estadística
+            </ui:define>    
+        </ui:composition>
+
+    </body>
+</html>

@@ -1,0 +1,44 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 12/11/2017, 15:35:35
+    Author     : jorgemalla
+*/
+#page-wrapper {
+    position: inherit;
+    margin: 0px 0px 0px 235px;
+    padding: 0px 0px;
+    border-left: 1px solid #E7E7E7;
+}
+#wrapper-r{
+    position: absolute;
+    z-index: 999;
+    top: 70px;
+    left: 20px;
+    width: 208px;
+    min-height: 150px;
+    background: #fff;
+    padding: 0 10px 10px;
+    border-radius: 5px;
+    -webkit-box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.47);
+    -moz-box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.47);
+    box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.47);
+}
+#wrapper-r .BigTopic{
+    display: block;
+    text-align: center;
+    font-size: 16px;
+    border-bottom: 1px dashed;
+    padding: 8px 0;
+    margin-bottom: 15px;
+    /*    background-image: url("#{resource['ineval/img/panel-plus.png']}");*/
+    background-repeat: no-repeat;
+    background-position-y: 5px;
+    color: #fff;
+}
+#wrapper-r .ui-radiobutton{
+    margin-top: 0 !important;
+}
