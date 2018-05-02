@@ -11,6 +11,7 @@ package edu.sangerardo.edspace.util;
  */
 public enum BaseEnum {
     PIE_CHART("pie"),
+    LINE_CHART("line"),
     BAR_CHART("bar");
     private String tipo;
 

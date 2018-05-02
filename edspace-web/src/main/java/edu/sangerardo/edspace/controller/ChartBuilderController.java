@@ -65,14 +65,14 @@ public class ChartBuilderController implements Serializable {
                 barChartModel.addSeries(chartSeriesViewCommunity);
             }
 
-            barChartModel.setTitle("Bar Chart");
-            barChartModel.setLegendPosition("s");
-            barChartModel.setLegendPlacement(LegendPlacement.OUTSIDEGRID);
+            barChartModel.setTitle("Número de Visitas a Comunidades por Mes");
+            barChartModel.setLegendPosition("e");
+            barChartModel.setLegendPlacement(LegendPlacement.OUTSIDE);
             barChartModel.setZoom(true);
             barChartModel.setAnimate(true);
-            barChartModel.setShadow(true);
-            barChartModel.setLegendCols(10);
+            barChartModel.setLegendCols(5);
             Axis xAxis = barChartModel.getAxis(AxisType.X);
+            xAxis.setTickAngle(-50);
             xAxis.setLabel("Meses");
 
             Axis yAxis = barChartModel.getAxis(AxisType.Y);
@@ -104,14 +104,14 @@ public class ChartBuilderController implements Serializable {
                 barChartModel.addSeries(chartSeriesViewCollection);
             }
 
-            barChartModel.setTitle("Bar Chart");
-            barChartModel.setLegendPosition("s");
-            barChartModel.setLegendPlacement(LegendPlacement.OUTSIDEGRID);
+            barChartModel.setTitle("Número de Visitas de Colecciones por Mes");
+            barChartModel.setLegendPosition("e");
+            barChartModel.setLegendPlacement(LegendPlacement.OUTSIDE);
             barChartModel.setZoom(true);
             barChartModel.setAnimate(true);
-            barChartModel.setShadow(true);
-            barChartModel.setLegendCols(10);
+            barChartModel.setLegendCols(5);
             Axis xAxis = barChartModel.getAxis(AxisType.X);
+            xAxis.setTickAngle(-50);
             xAxis.setLabel("Meses");
 
             Axis yAxis = barChartModel.getAxis(AxisType.Y);
@@ -143,14 +143,14 @@ public class ChartBuilderController implements Serializable {
                 barChartModel.addSeries(chartSeriesDownloadBitStream);
             }
 
-            barChartModel.setTitle("Bar Chart");
-            barChartModel.setLegendPosition("s");
-            barChartModel.setLegendPlacement(LegendPlacement.OUTSIDEGRID);
+            barChartModel.setTitle("Número de Descargas por Mes");
+            barChartModel.setLegendPosition("e");
+            barChartModel.setLegendPlacement(LegendPlacement.OUTSIDE);
             barChartModel.setZoom(true);
             barChartModel.setAnimate(true);
-            barChartModel.setShadow(true);
-            barChartModel.setLegendCols(10);
+            barChartModel.setLegendCols(5);
             Axis xAxis = barChartModel.getAxis(AxisType.X);
+            xAxis.setTickAngle(-50);
             xAxis.setLabel("Meses");
 
             Axis yAxis = barChartModel.getAxis(AxisType.Y);
@@ -171,6 +171,7 @@ public class ChartBuilderController implements Serializable {
             BarChartModel barChartModel = new BarChartModel();
             int max = 0;
             for (ViewItemDTO viewItemDTO : viewItemDTOs) {
+
                 ChartSeries chartSeriesViewItem = new ChartSeries();
                 chartSeriesViewItem.setLabel(viewItemDTO.getItemDTO().getTitle());
                 for (ResourceSolrGroupByDTO resourceSolrGroupByDTO : viewItemDTO.getResourceStatisticGroupBys()) {
@@ -180,16 +181,16 @@ public class ChartBuilderController implements Serializable {
                     }
                 }
                 barChartModel.addSeries(chartSeriesViewItem);
+
             }
 
-            barChartModel.setTitle("Bar Chart");
-            barChartModel.setLegendPosition("s");
-            barChartModel.setLegendPlacement(LegendPlacement.OUTSIDEGRID);
-            barChartModel.setZoom(true);
+            barChartModel.setTitle("Número de Visitas de Items por Mes");
+            barChartModel.setLegendPosition("e");
+            barChartModel.setLegendPlacement(LegendPlacement.OUTSIDE);
             barChartModel.setAnimate(true);
-            barChartModel.setShadow(true);
-            barChartModel.setLegendCols(10);
+            barChartModel.setLegendCols(5);
             Axis xAxis = barChartModel.getAxis(AxisType.X);
+            xAxis.setTickAngle(-50);
             xAxis.setLabel("Meses");
 
             Axis yAxis = barChartModel.getAxis(AxisType.Y);

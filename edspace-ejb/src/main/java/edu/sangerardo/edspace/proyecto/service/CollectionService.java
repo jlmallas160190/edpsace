@@ -14,7 +14,6 @@ import edu.sangerardo.edspace.proyecto.dto.ResourceSolrGroupByDTO;
 import edu.sangerardo.edspace.proyecto.dto.ViewCollectionDTO;
 import edu.sangerardo.edspace.proyecto.facade.CollectionFacade;
 import edu.sangerardo.edspace.proyecto.facade.MetaDataValueFacade;
-import edu.sangerardo.edspace.proyecto.modelo.Collection;
 import edu.sangerardo.edspace.proyecto.modelo.Metadatavalue;
 import edu.sangerardo.edspace.util.BaseUtilService;
 import edu.sangerardo.edspace.util.ConfiguracionEnum;
@@ -26,6 +25,7 @@ import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
@@ -74,13 +74,17 @@ public class CollectionService implements Serializable {
 
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat(detalleConfiguracionDateFormat3 != null ? detalleConfiguracionDateFormat3.getValor() : "yyyy-MM-dd");
             Date dateEndRange = simpleDateFormat.parse(detalleConfiguracionRangeEndMonth != null ? detalleConfiguracionRangeEndMonth.getValor() : "");
+            Calendar calDateStart = Calendar.getInstance();
+            calDateStart.setTime(dateEndRange);
+            calDateStart.add(Calendar.MONTH, -Integer.parseInt(detalleConfiguracionRangeNumberMonth.getValor()));
             List<String> datesRangeString = baseUtilService.getDatesRangeString(detalleConfiguracionRangeNumberMonth != null
                     ? Integer.valueOf(detalleConfiguracionRangeNumberMonth.getValor()) : 0, dateEndRange,
                     detalleConfiguracionDateFormat1 != null ? detalleConfiguracionDateFormat1.getValor() : "MMMM yyyy");
 
             SimpleDateFormat fechaFormat = new SimpleDateFormat(detalleConfiguracionDateFormat2 != null ? detalleConfiguracionDateFormat2.getValor() : "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
-
-            JSONArray data = solrService.getStatisticsResourceByType(ResourceTypeEnum.COLLECTION.getTipo());
+            String startDate = fechaFormat.format(calDateStart.getTime());
+            String endDate = fechaFormat.format(dateEndRange);
+            JSONArray data = solrService.getStatisticsResourceByType(ResourceTypeEnum.COLLECTION.getTipo(),startDate,endDate);
 
             //Construir la lista de descargar de los bitstream por meses.
             for (int i = 0; i < data.length(); i++) {

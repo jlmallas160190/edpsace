@@ -21,15 +21,13 @@
 
             <ui:define name="content">
                 <p:messages id="msg"/> 
-                <p:panel  id="panel-chart" header="Gráficos Estadísticos">
-                    <p:scrollPanel  >
-                        <center>
-                            <p:chart id="chart-edspace" type="#{chartBuilderController.tipoChart}" rendered="#{chartBuilderController.chartModel!=null}"
-                                     model="#{chartBuilderController.chartModel}"  />
-                        </center>
-                        <h:outputText style="font-size: 14px;font-weight: bolder" rendered="#{chartBuilderController.chartModel==null}" value="#{chartBuilderController.mensajeError}"/>
-                    </p:scrollPanel>
-                </p:panel>
+                <h3>Gráficos Estadísticos</h3>
+                <p:scrollPanel  id="panel-chart">
+                    <p:chart   id="chart-edspace" responsive="true" style="margin-bottom: 10px; overflow-y: auto"  
+                               type="#{chartBuilderController.tipoChart}" rendered="#{chartBuilderController.chartModel!=null}"
+                               model="#{chartBuilderController.chartModel}"/>
+                    <h:outputText style="font-size: 14px;font-weight: bolder" rendered="#{chartBuilderController.chartModel==null}" value="#{chartBuilderController.mensajeError}"/>
+                </p:scrollPanel>
 
             </ui:define>
             <ui:define name="bottom">

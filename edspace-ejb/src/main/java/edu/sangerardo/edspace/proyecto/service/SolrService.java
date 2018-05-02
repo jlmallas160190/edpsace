@@ -13,11 +13,18 @@ import edu.sangerardo.edspace.util.ConfiguracionEnum;
 import edu.sangerardo.edspace.util.DetalleConfiguracionEnum;
 import edu.sangerardo.edspace.util.ServiceClient;
 import edu.sangerardo.edspace.util.SolrEnum;
+import java.io.IOException;
 import java.io.Serializable;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 /**
@@ -39,9 +46,11 @@ public class SolrService implements Serializable {
      * tipo
      *
      * @param type
+     * @param startDateParam
+     * @param endDateParam
      * @return
      */
-    public JSONArray getStatisticsResourceByType(String type) {
+    public JSONArray getStatisticsResourceByType(String type,String startDateParam,String endDateParam) {
         List<Configuracion> configuracionesGenerales = configuracionFacade.findByNamedQueryWithLimit("Configuracion.findByCodigo", 0, ConfiguracionEnum.GENERAL.getTipo());
         List<Configuracion> configuracionesApiSolr = configuracionFacade.findByNamedQueryWithLimit("Configuracion.findByCodigo", 0, ConfiguracionEnum.API_SOLR_STATISTICS.getTipo());
 
@@ -64,13 +73,48 @@ public class SolrService implements Serializable {
         String rows = String.format("%s", detalleConfiguracionRows != null ? detalleConfiguracionRows.getValor() : "100");
         String wt = String.format("%s", detalleConfiguracionWt != null ? detalleConfiguracionWt.getValor() : "json");
         String facet = String.format("%s", detalleConfiguracionFacet != null ? detalleConfiguracionFacet.getValor() : "true");
+        String startDate = String.format("%s",startDateParam);
+        String endDate = String.format("%s",endDateParam);
         String q = "type:".concat(type);
-        String query = String.format("indent=%s&start=%s&rows=%s&wt=%s&facet=%s&q=%s", indent, start,
-                rows, wt, facet, q);
+        String query = String.format("indent=%s&start=%s&rows=%s&wt=%s&facet=%s&q=%s&facet.date.start=%s&facet.date.end=%s", indent, start,
+                rows, wt, facet, q,startDate,endDate);
         String response = serviceClient.getResponse(url, query);
         JSONObject jSONObject = new JSONObject(response);
         JSONObject jSONResponse = jSONObject.getJSONObject(SolrEnum.RESPONSE.getTipo());
         JSONArray data = jSONResponse.getJSONArray(SolrEnum.DATA.getTipo());
+        return data;
+    }
+
+    public JSONArray getJson() {
+        JSONArray data = null;
+        try {
+            String text = new String(Files.readAllBytes(Paths.get("/home/jorgemalla/Documentos/Proyectos/edspace/dspace.txt")), StandardCharsets.UTF_8);
+            JSONObject jSONObject = new JSONObject(text);
+            JSONObject jSONResponse = jSONObject.getJSONObject(SolrEnum.RESPONSE.getTipo());
+            data = jSONResponse.getJSONArray(SolrEnum.DATA.getTipo());
+            return data;
+        } catch (JSONException e) {
+            System.out.println(e);
+        } catch (IOException ex) {
+            Logger.getLogger(SolrService.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return data;
+    }
+     public JSONArray getJsonItem() {
+        JSONArray data = null;
+        try {
+            String text = new String(Files.readAllBytes(Paths.get("/home/jorgemalla/Documentos/Proyectos/edspace/items.txt")), StandardCharsets.UTF_8);
+            JSONObject jSONObject = new JSONObject(text);
+            JSONObject jSONResponse = jSONObject.getJSONObject(SolrEnum.RESPONSE.getTipo());
+            data = jSONResponse.getJSONArray(SolrEnum.DATA.getTipo());
+            return data;
+        } catch (JSONException e) {
+            System.out.println(e);
+        } catch (IOException ex) {
+            Logger.getLogger(SolrService.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
         return data;
     }
 }
